@@ -40,7 +40,7 @@ function dibujarNave(x,y,angulo,thrusting){
   document.addEventListener('keydowm', e=>keys[e.code]=true);
   document.addEventListener('keyup', e => keys[e.code]=false);
 }
-function loop (x,y){
+function loop (){
 c.fillStyle = 'black';
 c.fillRect(0,0, canvas.width, canvas.height);
 if (keys['ArroyLeft'])nave.angle -=45;
