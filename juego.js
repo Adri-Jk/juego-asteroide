@@ -24,8 +24,28 @@ function dibujarNave(x,y,angulo,thrusting){
   c.closePath();
   c.strokeStyle='white';
   c.stroke();
+
+   if(thrusting){
+    c.beginPath();
+    c.moveTo(-10,0);
+    c.lineTo(-20,-4);
+    c.lineTo(-20,-4);
+    c.closePath();
+    c.strokeStyle='orange';
+    c.stroke();
+  }
   c.restore();
+
+  const keys = {};
+  document.addEventListener('keydowm', e=>keys[e.code]=true);
+  document.addEventListener('keyup', e => keys[e.code]=false);
+}
+function loop (x,y){
+c.fillStyle = 'black';
+c.fillRect(0,0, canvas.width, canvas.height);
+if (keys['ArroyLeft'])nave.angle -=45;
+if (keys['ArroyRight'])nave.angle +=45;
 }
 dibujarNave(nave.x, nave.y, 0,false);
  console.log(c);
-console.log(canvas);
+console.log(canvas); 
