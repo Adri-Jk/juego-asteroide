@@ -43,8 +43,8 @@ function dibujarNave(x,y,angulo,thrusting){
 function loop (){
 c.fillStyle = 'black';
 c.fillRect(0,0, canvas.width, canvas.height);
-if (keys['ArroyLeft'])nave.angle -=45;
-if (keys['ArroyRight'])nave.angle +=45;
+if (keys['ArroyLeft'])nave.angle -=5;
+if (keys['ArroyRight'])nave.angle +=5;
 }
 dibujarNave(nave.x, nave.y, 0,false);
  console.log(c);
