@@ -36,19 +36,11 @@ function dibujarNave(x,y,angle,thrusting){
   c.strokeStyle='white';
   c.stroke();
 
-
-  if(thrusting){
-    c.beginPath();
-    c.moveTo(-10,0);
-    c.lineTo(-20,-4);
-    c.lineTo(-20, 4);
-
    if(thrusting){
     c.beginPath();
     c.moveTo(-10,0);
     c.lineTo(-20,-4);
     c.lineTo(-20,-4);
-
     c.closePath();
     c.strokeStyle='orange';
     c.stroke();
@@ -149,5 +141,4 @@ function dibujarAsteroides(a){
   c.arc(a.x, a.y, a.radio, 0, Math.PI * 2);
   c.strokeStyle = 'White';
   c.stroke();
-}
 }
