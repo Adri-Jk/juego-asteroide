@@ -17,7 +17,7 @@ const asteroides = [];
 const nave = {
     x: canvas.width/2,
     y: canvas.height/2,
-    vx:0, vy:0,
+    vx:0, vy:0,    
     size: 20,
     alive:true,
     invencivilidad:0,
@@ -68,6 +68,11 @@ nave.y += nave.vy;
 nave.vx *= 0.99;
 nave.vy *= 0.99;
 
+if (nave.x < 0) nave.x = canvas.width;
+if (nave.x > canvas.width) nave.x = 0;
+if (nave.y < 0) nave.y = canvas.height;
+if (nave.y > canvas.height) nave.y = 0;
+
 for (let i = balas.length -1; i >= 0; i --){
   balas[i].x += balas[i].vx;
   balas[i].y += balas[i].vy;
@@ -79,9 +84,24 @@ for (let i = balas.length -1; i >= 0; i --){
   c.fill();
 }
 
+for (let i= balas.length -1; i >= 0; i--){
+  for(let j= asteroides.length -1; j >= 0; j--){
+    const distancia = Math.hypot(balas[i].x - asteroides[j].x, balas[i].y - asteroides[j].y);
+    if (distancia < asteroides[j].radio){
+      balas.splice(i, 1);
+      asteroides.splice(j, 1);
+      break;
+    }
+  }
+}
+
 for(const a of asteroides){
   a.x += a.vx;
   a.y += a.vy;
+  if (a.x < 0) a.x = canvas.width;
+    if (a.x > canvas.width) a.x = 0;
+    if (a.y < 0) a.y = canvas.height;
+    if (a.y > canvas.height) a.y = 0;
   dibujarAsteroides(a);
 }
 
