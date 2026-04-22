@@ -16,6 +16,10 @@ const asteroides = [];
 
 const particulas = [];
 
+let vidas = 3;
+
+let gameOver = false;
+
 const nave = {
     x: canvas.width/2,
     y: canvas.height/2,
@@ -90,8 +94,16 @@ for (let i= balas.length -1; i >= 0; i--){
   for(let j= asteroides.length -1; j >= 0; j--){
     const distancia = Math.hypot(balas[i].x - asteroides[j].x, balas[i].y - asteroides[j].y);
     if (distancia < asteroides[j].radio){
+      const ax = asteroides[j].x;
+      const ay = asteroides[j].y;
+      const ar = asteroides[j].radio;
+
       balas.splice(i, 1);
       asteroides.splice(j, 1);
+      if (ar > 20){
+        crearAsteroides(ax, ay, ar/2);
+        crearAsteroides(ax, ay, ar/2);
+      }
       break;
     }
   }
@@ -101,7 +113,11 @@ for (let j= asteroides.length -1; j >= 0;j--){
   const distancia = Math.hypot(nave.x - asteroides[j].x, nave.y - asteroides[j].y);
   if (distancia < asteroides[j].radio + nave.size && nave.alive){
     nave.alive = false;
+    vidas--;
     explosionNave();
+    if (vidas <= 0){
+      gameOver = true;
+    }else{
     setTimeout(() => {
       nave.x = canvas.width/2;
       nave.y = canvas.height/2;
@@ -109,6 +125,7 @@ for (let j= asteroides.length -1; j >= 0;j--){
       nave.vy = 0;
       nave.alive = true;
     }, 2000);
+    }
     break;
   }
 }
@@ -138,6 +155,19 @@ for(const a of asteroides){
     if (a.y > canvas.height) a.y = 0;
   dibujarAsteroides(a);
 }
+
+if (gameOver){
+  c.fillStyle = 'white';
+  c.font = '50px vector battle';
+  c.textAlign = 'center';
+  c.fillText('GAME OVER', canvas.width/2, canvas.height/2);
+  return;
+}
+
+c.fillStyle = 'white';
+c.font = '30px vector battle';
+c.textAlign = 'left';
+c.fillText ('VIDAS:' + vidas, 20, 30);
 
 if (nave.alive){
   dibujarNave(nave.x, nave.y, nave.angle, keys['ArrowUp']);
@@ -208,3 +238,4 @@ function explosionNave(){
     });
   }
 }
+
